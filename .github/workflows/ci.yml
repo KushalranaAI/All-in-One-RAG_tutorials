@@ -1,0 +1,80 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# Least privilege: these jobs only read the repository. Only the deploy job below can publish, and only from main.
+permissions:
+  contents: read
+
+# A newer push to the same branch or pull request replaces a run that is still going.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+# The job names below (python, web) are the status checks that .github/rulesets/protect-main.json requires.
+jobs:
+  python:
+    name: python
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      RAG_EMBEDDER: hashing # the tests use the dependency-free embedder; no model download
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      # sentence-transformers pulls in PyTorch (gigabytes) and the tests never use it
+      - run: grep -v sentence-transformers requirements.txt > "$RUNNER_TEMP/requirements-ci.txt"
+      - run: pip install -r "$RUNNER_TEMP/requirements-ci.txt" pytest
+      - run: pip install -e .
+      # real MCP servers over stdio, every lesson and project script with a scripted stand-in for Claude (no API key)
+      - run: python -m pytest -q
+
+  web:
+    name: web
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - run: npm ci
+      # course parsing, the retrieval algorithms vs rag_common, encrypted key storage and the .env relay
+      - run: npm test
+      - run: npm run typecheck
+      - run: npm run build
+      # The static copy for GitHub Pages (no server, no Run buttons). Built on every pull request so a break is caught
+      # before merge; only main uploads it for deployment.
+      - run: npm run build:pages
+        env:
+          PAGES_BASE_PATH: /${{ github.event.repository.name }}
+      - uses: actions/upload-pages-artifact@v3
+        if: github.ref == 'refs/heads/main'
+        with:
+          path: web/out
+
+  # Publishes the site once both checks pass on main. Needs Settings -> Pages -> Source: "GitHub Actions".
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: [python, web]
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

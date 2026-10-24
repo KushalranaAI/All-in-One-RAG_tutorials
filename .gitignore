@@ -15,6 +15,7 @@ downloads/
 eggs/
 .eggs/
 lib/
+!web/lib/
 lib64/
 parts/
 sdist/
@@ -185,3 +186,10 @@ projects/14-rag-evaluation-lab/testset.json
 projects/14-rag-evaluation-lab/results.csv
 projects/14-rag-evaluation-lab/leaderboard.md
 data/multimodal/
+
+# Web app (web/)
+web/node_modules/
+web/.next/
+web/out/
+web/tsconfig.tsbuildinfo
+.pages-build/

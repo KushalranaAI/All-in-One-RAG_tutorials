@@ -1,0 +1,37 @@
+{
+  "name": "rag-in-30-days-web",
+  "version": "1.0.0",
+  "private": true,
+  "author": "Kushal Rana (https://kushalranaai.github.io/)",
+  "description": "Local interactive learning app for the All-in-One RAG tutorials (30 days + 15 projects)",
+  "scripts": {
+    "dev": "next dev --port 3000",
+    "build": "next build",
+    "start": "next start --port 3000",
+    "typecheck": "tsc --noEmit",
+    "verify": "npm test && npm run typecheck && npm run build",
+    "build:pages": "node scripts/build-pages.mjs",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "gray-matter": "4.0.3",
+    "highlight.js": "11.12.0",
+    "katex": "0.19.1",
+    "mermaid": "12.2.0",
+    "next": "16.4.3",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "react-markdown": "10.1.0",
+    "rehype-highlight": "7.0.2",
+    "rehype-katex": "7.0.1",
+    "remark-gfm": "4.0.1",
+    "remark-math": "6.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.5",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "typescript": "5.9.3",
+    "vitest": "5.0.5"
+  }
+}

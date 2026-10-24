@@ -19,8 +19,8 @@ Then    15 projects         chatbots, MCP servers, analyst agents, agent teams, 
 ## Quick start
 
 ```bash
-git clone https://github.com/KushalranaAI/all-in-one-RAG_tutorials.git
-cd all-in-one-RAG_tutorials
+git clone https://github.com/KushalranaAI/All-in-One-RAG_tutorials.git
+cd All-in-One-RAG_tutorials
 python -m venv .venv && source .venv/bin/activate     # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 pip install -e .                                      # installs the shared `rag_common` package
@@ -35,6 +35,44 @@ python days/day-01-what-is-rag/hello_claude.py        # your first RAG call
   dependency-free hashing embedder, so everything still runs (set `RAG_EMBEDDER=hashing` to force it).
 - Models: `claude-opus-5-5` for answers and orchestration, `claude-haiku-5-5` for fast, cheap steps
   (rewriting, grading, extraction). Override them with `RAG_MODEL` / `RAG_FAST_MODEL`.
+
+---
+
+## The interactive app
+
+Prefer a guided UI to reading Markdown on GitHub? The same lessons, projects and code, in a local web app:
+
+```bash
+python -m venv .venv && source .venv/bin/activate     # Windows: .venv\Scripts\activate
+python start.py
+```
+
+`start.py` checks Python (3.10+) and Node.js (20.9+), installs the Python and npm packages if they're missing,
+creates `.env` from `.env.example` if you don't have one, starts the app at **http://127.0.0.1:3000** and opens your
+browser. Edit a lesson, a project or the code and the open page updates by itself.
+
+| Option | What it does |
+|---|---|
+| `python start.py --prod` | build once and run the faster production server (no live reload) |
+| `python start.py --port 4000 --no-browser` | different port, no browser tab |
+| `python start.py --skip-install` / `--reinstall` | skip or force the dependency step |
+
+**Just want to read and play?** A read-only copy is published at
+**https://kushalranaai.github.io/All-in-One-RAG_tutorials/** (rebuilt automatically from `main`). It has the lessons,
+the retrieval lab, progress tracking, notes and the AI tutor with your own key; it can't run the Python scripts.
+
+- **Guided days.** Each day is a short journey: Overview → Learn → Try it → Code → Run → Exercises → Quiz → Notes.
+  Tick off exercises, mark days complete, keep notes, and pick up where you left off from the dashboard.
+- **Run buttons.** Every `python …` command from a lesson's README runs in the page with *your* Python, from the
+  repository root. Edit the arguments to ask your own question.
+- **Retrieval lab.** Chunking, embeddings, BM25 + RRF hybrid search, prompt assembly and the Day 14 evaluation,
+  running in the browser on the sample handbook (the `rag_common` algorithms ported to TypeScript, no API key needed).
+- **Technique map.** Start from what's going wrong ("misses exact terms", "wrong customer's data") and jump to the day that fixes it.
+- **AI tutor.** Highlight anything and ask. It uses the `ANTHROPIC_API_KEY` in your `.env` (the key stays on your
+  computer), or a local Ollama model, or another provider's key.
+- **Search everything** with `Ctrl K` / `Cmd K`. Progress, notes and quiz scores stay in your browser; export them from **My progress**.
+
+The app only listens on `127.0.0.1`, because its Run buttons execute course scripts on your machine.
 
 ---
 
@@ -117,6 +155,8 @@ search), `sql_server` (read-only SQL) and `tickets_server` (ticketing). Add them
 ## Repository layout
 
 ```
+start.py           one-command launcher for the web app
+web/               Next.js app: renders the course, retrieval lab, runs scripts locally (see web/DESIGN.md)
 rag_common/        shared library you build in Week 1 (LLM wrapper, embeddings, chunking, vector store,
                    BM25 + hybrid search, agents, MCP bridge)
 data/              sample "Nimbus Cloud" handbook, eval set, sample DB generator
