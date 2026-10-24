@@ -1,0 +1,9 @@
+ACME HOSTING SUPPLIES — INVOICE #1042
+Invoice date: 2026-07-03   Due date: 2026-08-02
+Bill to: Nimbus Cloud Inc, 1 Market St, San Francisco
+Items:
+  Rack rails (x20) ............ 20 x $45.00  = $900.00
+  Cat6 cables 3m (x200) ....... 200 x $2.50  = $500.00
+  Installation labour ......... 6 h x $90.00 = $540.00
+Subtotal: $1,940.00   Tax (8.5%): $164.90   TOTAL: $2,104.90 USD
+Status: PAID on 2026-07-28

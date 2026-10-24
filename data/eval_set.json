@@ -1,0 +1,18 @@
+[
+  {"question": "How much does the Pro plan cost per year?", "answer": "$790 per year", "source": "pricing"},
+  {"question": "Which plan includes SAML single sign-on?", "answer": "Enterprise", "source": "security"},
+  {"question": "How long do I have to request a refund on a monthly plan?", "answer": "Within 14 days of the first payment", "source": "refund_policy"},
+  {"question": "Can I get money back on an annual plan after 45 days?", "answer": "Yes, a prorated refund is available within the first 60 days", "source": "refund_policy"},
+  {"question": "What happens to my data after I cancel?", "answer": "It is retained for 30 days, then permanently deleted", "source": "refund_policy"},
+  {"question": "How many API requests per minute does the Pro plan allow?", "answer": "600 requests per minute (burst 100)", "source": "api_rate_limits"},
+  {"question": "What does HTTP 409 mean in the Nimbus API?", "answer": "A conflicting deployment is already in progress", "source": "api_rate_limits"},
+  {"question": "How long are backups kept on the Pro plan?", "answer": "30 days", "source": "security"},
+  {"question": "Is a HIPAA BAA available on the Pro plan?", "answer": "No, only on Enterprise", "source": "security"},
+  {"question": "How quickly must a SEV1 page be acknowledged?", "answer": "Within 5 minutes", "source": "incident_runbook"},
+  {"question": "How many vacation days do full-time employees get?", "answer": "25 days per year plus public holidays", "source": "onboarding"},
+  {"question": "What is the home-office stipend?", "answer": "A one-time $1,000 stipend plus $50/month for internet", "source": "onboarding"},
+  {"question": "Is there a free trial and does it need a credit card?", "answer": "Yes, 14-day Pro trial, no credit card required", "source": "product_faq"},
+  {"question": "Which Asian regions are supported?", "answer": "ap-south (Mumbai) and ap-southeast (Singapore)", "source": "product_faq"},
+  {"question": "What discount do students get?", "answer": "50% off the Pro plan after verification", "source": "pricing"},
+  {"question": "How much does the bug bounty pay at most?", "answer": "Up to $10,000 for critical findings", "source": "security"}
+]

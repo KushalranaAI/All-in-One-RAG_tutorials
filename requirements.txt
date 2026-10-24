@@ -1,0 +1,24 @@
+# Core (needed by every day and project)
+anthropic>=1.0
+pydantic>=2.0
+numpy>=1.26
+python-dotenv>=1.0
+
+# Retrieval
+sentence-transformers>=3.0   # local embeddings + cross-encoder rerankers (optional: falls back to a hashing embedder)
+chromadb>=0.5                # Day 05 and a few projects
+rank-bm25>=0.2               # hybrid search (Day 08+)
+
+# Loading documents
+pypdf>=4.0
+beautifulsoup4>=4.12
+requests>=2.31
+
+# MCP + serving
+mcp>=1.2                     # Model Context Protocol SDK (Day 19+)
+fastapi>=0.110
+uvicorn>=0.29
+streamlit>=1.35
+
+# Graph RAG
+networkx>=3.2

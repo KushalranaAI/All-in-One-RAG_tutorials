@@ -1,0 +1,10 @@
+Meeting: Incident review INC-0412 — 2026-10-09
+Attendees: Tomás (Engineering), Aiko (Security), Sam (Support)
+
+Tomás: The SEV1 on October 7 lasted 47 minutes in us-east. Root cause: a bad config push to the load balancers.
+Sam: We updated the status page only twice in 47 minutes; the runbook says every 30 minutes, so we were OK, but customers felt it was slow.
+Aiko: No data was lost or exposed.
+Tomás: Decision: all load balancer config changes now require a canary deploy and a second reviewer.
+Sam: I'll update the customer-facing postmortem and send it to affected Enterprise accounts by October 12.
+Tomás: I'll add automated config validation in CI by October 23.
+Aiko: Open question — should SEV1 status updates be every 15 minutes instead of 30?

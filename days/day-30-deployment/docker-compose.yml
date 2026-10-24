@@ -1,0 +1,12 @@
+services:
+  api:
+    build: {context: ../.., dockerfile: days/day-30-deployment/Dockerfile}
+    env_file: ../../.env
+    ports: ["8000:8000"]
+    volumes: ["../../data:/app/data"]
+  mcp:
+    build: {context: ../.., dockerfile: days/day-30-deployment/Dockerfile}
+    env_file: ../../.env
+    command: ["python", "days/day-20-build-mcp-server/rag_mcp_server.py", "--http", "--port", "8001"]
+    ports: ["8001:8001"]
+    volumes: ["../../data:/app/data"]

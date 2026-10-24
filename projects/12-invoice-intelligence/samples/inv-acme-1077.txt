@@ -1,0 +1,9 @@
+ACME HOSTING SUPPLIES — INVOICE #1077
+Invoice date: 2026-09-14   Due date: 2026-10-14
+Bill to: Nimbus Cloud Inc
+Items:
+  SFP+ transceivers (x40) ..... 40 x $28.00 = $1,120.00
+  Patch panels (x10) .......... 10 x $65.00 = $650.00
+Subtotal: $1,770.00   Tax (8.5%): $150.45   TOTAL: $1,920.45 USD
+Status: UNPAID
+Note: 2% discount if paid within 10 days.
