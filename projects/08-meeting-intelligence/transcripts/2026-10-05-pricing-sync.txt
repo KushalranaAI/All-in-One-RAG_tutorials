@@ -1,0 +1,11 @@
+Meeting: Pricing sync — 2026-10-05
+Attendees: Maya (Head of Product), Ravi (Finance), Lena (Marketing)
+
+Maya: Let's settle the student discount. Today it's 50% off Pro after verification.
+Ravi: Verification costs us about $2 per student through the vendor. Margins are fine at 50%.
+Lena: Universities keep asking for a team plan. Could we offer Pro free for verified classrooms?
+Maya: Not free. Decision: keep 50% for individuals, and pilot a classroom bundle at $199 per semester for up to 30 seats.
+Ravi: I'll model the revenue impact of the classroom bundle by October 19.
+Lena: I'll draft the landing page copy for the pilot by October 15.
+Maya: Open question — do we require .edu emails or accept other proof? Let's ask Legal.
+Ravi: Also, annual Pro stays at $790. No change this quarter.

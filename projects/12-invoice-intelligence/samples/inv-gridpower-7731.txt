@@ -1,0 +1,7 @@
+GridPower Energy Ltd · Invoice 7731
+Date 2026-09-01 · Payment due 2026-09-30
+Customer: Nimbus Cloud Inc (account NC-88)
+Data centre electricity, August 2026 — 182,400 kWh @ $0.11 = $20,064.00
+Capacity charge — $3,200.00
+Total due: $23,264.00 (no tax)
+Status: UNPAID

@@ -1,0 +1,11 @@
+Meeting: EU expansion — 2026-10-08
+Attendees: Maya (Product), Tomás (Engineering), Ravi (Finance), Aiko (Security)
+
+Tomás: eu-central in Frankfurt is at capacity. We want a second EU region.
+Aiko: For data residency customers, Paris or Dublin both work; Dublin has better peering for UK customers.
+Maya: Decision: the second EU region will be eu-west in Dublin, target general availability in Q2 2027.
+Ravi: Budget is approved up to $1.2M for the first year.
+Tomás: I own the capacity plan; draft due November 1.
+Aiko: I'll run the GDPR and data-residency review, due November 15.
+Maya: Open question — do we offer EU-only support hours? Ravi to estimate staffing cost.
+Ravi: Fine, I'll have that estimate by November 8.

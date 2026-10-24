@@ -1,0 +1,22 @@
+MASTER SERVICES AGREEMENT between DataPipe Analytics Ltd ("Vendor") and Nimbus Cloud Inc ("Customer").
+
+1. TERM. This Agreement starts on the Effective Date and continues for 36 months, renewing automatically for
+successive 36-month periods unless either party gives 180 days' written notice of non-renewal.
+
+2. FEES AND PAYMENT. Customer shall pay all fees for the full initial term annually in advance. Invoices are due
+within 15 days. Late payments accrue interest at 2% per month.
+
+3. DATA. Vendor will process Customer Data to provide the services and may use aggregated and de-identified
+Customer Data to improve and train its products. Vendor will notify Customer of a security breach within
+5 business days of confirming it.
+
+4. LIMITATION OF LIABILITY. Vendor's total liability under this Agreement shall not exceed the fees paid in the
+one (1) month preceding the claim. This cap applies to all claims, including breaches of data protection obligations.
+
+5. INDEMNIFICATION. Vendor shall indemnify Customer against third-party claims alleging that the services
+infringe intellectual property rights. Customer shall indemnify Vendor against all claims arising from use of
+the services, including claims caused by Vendor's negligence.
+
+6. TERMINATION. Either party may terminate for material breach not cured within 60 days of notice.
+
+7. GOVERNING LAW. This Agreement is governed by the laws of England and Wales.

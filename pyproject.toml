@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rag-common"
+version = "0.1.0"
+description = "Shared helpers for the all-in-one RAG tutorials (LLM, embeddings, chunking, vector store)."
+requires-python = ">=3.10"
+dependencies = ["anthropic>=1.0", "numpy>=1.26", "pydantic>=2.0"]
+
+[tool.setuptools]
+packages = ["rag_common"]
