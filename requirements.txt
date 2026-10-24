@@ -18,7 +18,7 @@ requests>=2.31
 mcp>=1.2                     # Model Context Protocol SDK (Day 19+)
 fastapi>=0.110
 uvicorn>=0.29
-streamlit>=1.35
+streamlit>=1.65.0
 
 # Graph RAG
 networkx>=3.2
