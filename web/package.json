@@ -9,6 +9,7 @@
     "build": "next build",
     "start": "next start --port 3000",
     "typecheck": "tsc --noEmit",
+    "check:toolkit": "node scripts/check-toolkit-snippets.mjs",
     "verify": "npm test && npm run typecheck && npm run build",
     "build:pages": "node scripts/build-pages.mjs",
     "test": "vitest run"

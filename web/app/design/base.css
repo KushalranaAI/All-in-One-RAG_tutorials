@@ -13,7 +13,8 @@ body { background: var(--bg); color: var(--text); font: 14.5px/1.55 var(--font);
 a { color: var(--accent-strong); text-decoration: none; }
 a:hover { text-decoration: underline; text-underline-offset: 3px; }
 button { font: inherit; }
-code, kbd { font-family: var(--mono); font-size: 0.86em; }
+code, kbd, pre { font-family: var(--mono); font-variant-ligatures: none; }
+code, kbd { font-size: 0.86em; }
 :not(pre) > code { background: var(--panel-2); border: 1px solid var(--line); padding: 1px 5px; border-radius: 5px; }
 kbd { display: inline-block; min-width: 20px; text-align: center; padding: 1px 6px; border-radius: 6px; background: var(--panel-2); border: 1px solid var(--line-2); border-bottom-width: 2px; color: var(--text); font-size: 0.75rem; }
 h1, h2, h3, h4 { line-height: 1.2; margin: 0 0 0.5em; letter-spacing: -0.01em; color: var(--text); }
