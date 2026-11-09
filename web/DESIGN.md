@@ -1,61 +1,52 @@
-# Design notes
+# Design system: the Kushal Rana learning apps
 
-How the web app is meant to look and behave, and why. Read this before adding a page or a component.
+System Learn, AI Engineer Path, LLM 1 → 100 and RAG in 30 Days look and behave like one product. Someone who
+has used one should already know how to use the others. This is the mark of the work: the same surfaces, one
+accent, the same type, the same page structure, the same signature at the bottom.
 
-The app is a sibling of the [Machine Learning 1 → 100](https://github.com/KushalranaAI/machine-learning-1-to-100) app:
-same shell, components, tokens and interaction patterns, with a cyan accent instead of indigo. A learner who has used
-one should already know how to use the other (Jakob's law). Keep it that way: when you improve a shared pattern
-here, consider porting it there.
+**System Learn is the reference.** When a pattern changes, change it there first and copy it across.
 
-## Product principles
+## The two shared files
 
-1. **The Markdown is the source of truth.** Every lesson, project, command and exercise comes from the READMEs
-   (`lib/content.ts`). The app adds no content of its own except the technique map, the lab widgets and UI copy. If
-   something is wrong in the app, fix the README.
-2. **One next step, always visible.** The dashboard leads with "Continue", every lesson step ends with "Next: …",
-   and the last step marks the day complete and points to tomorrow.
-3. **Learn by doing, then measure.** Each day moves from reading to trying (lab widget) to running real code to an
-   exercise. The evaluation widget and the tutor's prompt both push "change one thing, measure it" (Day 14).
-4. **Local-first and private.** Progress, notes and quiz scores live in `localStorage`; API keys stay in `.env` on
-   the learner's machine and are attached server-side (`server/ai-relay.ts`). The server binds to `127.0.0.1`.
+| File | What it holds |
+|---|---|
+| `design/tokens.css` | Every colour, radius, shadow, easing and font token, for dark (default) and light. |
+| `design/base.css` | Base elements and the shared components: page shell, nav, buttons and fields, pills and meters, cards, hero, entry cards, chat widget, credit strip, React Flow canvas. |
 
-## UX principles and where they show up
+They are byte-identical in every app (`src/design/` in the Vite apps, `app/design/` in the Next apps). Each app's
+own stylesheet loads them first, then adds only what is specific to that app (lessons, widgets, the lab, phase
+colours). **Never fork them inside one app.** Never write a raw colour in a component: add a token.
 
-| Principle | Source | In this app |
-|---|---|---|
-| Progressive disclosure | NN/g | A lesson shows one step at a time (Overview → … → Notes); code from `rag_common` and long command lists sit in collapsed `<details>`. |
-| Recognition rather than recall | NN/g heuristic 6 | `Ctrl K` palette searches days, techniques and projects; the technique map starts from symptoms, not jargon; days are labelled "Day 08" everywhere, as the course does. |
-| Visibility of system status | NN/g heuristic 1 | Progress rings per week, sidebar status icons, reading-progress bar, live run output with an elapsed timer, "Saving…/Saved" on notes. |
-| User control and freedom | NN/g heuristic 3 | Run arguments are editable and resettable; runs can be stopped; tabs are reachable from the URL hash; progress can be exported, imported and reset. |
-| Error prevention and recovery | NN/g heuristics 5 and 9 | The Run API warns before running without `ANTHROPIC_API_KEY`, explains a missing package in one line, and only offers commands that make sense in a browser (no servers, placeholders or interactive sessions). |
-| Consistency and standards | NN/g heuristic 4, Jakob's law | One token set (`app/globals.css`), one icon set (`components/ui/Icon.tsx`), the same card / pill / button vocabulary on every page. |
-| Hick's law | Laws of UX | Fifteen projects and 24 techniques are filterable; the dashboard shows three "up next" items, not thirty. |
-| Chunking / Miller's law | Laws of UX | Thirty days grouped into four weeks; each week shows its path ("embeddings → loading → chunking …"). |
-| Fitts's law | Laws of UX | Primary actions are large (`.btn.lg`) and sit where the eye ends: the bottom of each step, the hero. |
-| Cognitive load | Sweller; e-learning UX research | One section per screen, short helper text above each tool, explanations under each widget instead of in a manual. |
+## Look
 
-## Accessibility (WCAG 2.2 AA)
+- **Dark first.** `--bg #0a0c10`, panels step up in layers (`--bg-2`, `--panel`, `--panel-2`, `--panel-3`), hairline borders (`--line`, `--line-2`).
+- **One accent: emerald** (`--accent #10b981`, `--accent-strong #34d399`). Used for actions, the active nav item, links, progress and the logo. Status colours (`--good`, `--warm`, `--hot`, `--bad`) carry meaning only; `--ai` marks AI features.
+- **Light is a toggle**, not a default: `<html data-theme="light">`, same layout, emerald deepened for contrast. Code blocks stay dark in both themes.
+- **Type:** Inter Variable for text, JetBrains Mono Variable for code. Body 14.5px. Headings tight (`letter-spacing -0.025em`), weight 650 to 700. Eyebrows are 0.72rem, uppercase, emerald.
+- **Shape:** radii 8 / 12 / 16 (`--r-sm`, `--r`, `--r-lg`). Hover lifts a card 2px. One easing curve (`--ease`). Respect `prefers-reduced-motion`.
 
-- Text and controls meet 4.5:1 contrast in both themes (`--brand` `#0e7490` on white is 5.4:1; white on
-  `--brand-solid` likewise). Colour is never the only signal: rings show numbers, status icons have labels.
-- Targets are at least 24×24 px (2.5.8); most buttons are 40 px high.
-- The sticky top bar and lesson stepper must not hide focused elements (2.4.11): headings get `scroll-margin-top`.
-- Everything works by keyboard: skip link, arrow keys in the stepper, `Esc` closes overlays, focus returns to the
-  trigger after the palette closes.
-- `prefers-reduced-motion` turns animations off; `prefers-color-scheme` picks the theme unless the learner chooses.
-- No horizontal page scroll at 390 px. Wide content (code, tables, the stepper) scrolls inside its own box.
+## Structure
 
-## Adding things
+1. **Top bar, 56px:** logo tile + name, main sections (icon + label; labels collapse below 1180px), a spacer, then search, progress, theme toggle and the AI chip. Course outlines (module or day lists) sit **beside** lessons, never in the global nav.
+2. **Page:** `eyebrow` → `h1` → `lead` → content, centred at 1120px (`.page`, `.page.narrow`, `.page.wide`).
+3. **Home:** hero (eyebrow, heading with the word *building* in the emerald gradient via `<em>`, lead, primary + secondary button, stats row, animated architecture diagram with three metric tiles), then "Four ways in" entry cards, then "How it works" steps. A returning learner also gets "Pick up where you left off" resume cards.
+4. **Credit strip, 30px, every page:** "Built by Kushal Rana" and five icon links (portfolio, LinkedIn, X, Medium, YouTube).
+5. **Logo:** the emerald rounded tile is the family mark. Each app keeps its own glyph inside it (bars, peak and dot, search with a spark).
 
-- **A lab widget:** port the algorithm into `lib/rag.ts` with a test against the Python output, add a component in
-  `components/widgets/`, register it in `components/widgets/index.tsx` with the days it belongs to. It then appears
-  in the lab and in those days' "Try it" step.
-- **A technique:** add a row to `lib/techniques.ts`. Only link days whose README actually teaches it.
-- **Colours:** add a token in `:root` and `[data-theme="dark"]`; never a raw colour in a component.
+## Behaviour
 
-## Sources
+- Local-first. Progress and notes live in `localStorage`. Keys never leave the machine.
+- One next step is always visible; every lesson ends with where to go next.
+- Responsive in width **and** height. No horizontal page scroll at 390px; wide content scrolls inside its own box.
+- Keyboard first: visible focus ring (`--ring`), skip link, `Esc` closes overlays.
 
-- Nielsen Norman Group: [10 usability heuristics](https://www.nngroup.com/articles/ten-usability-heuristics/), [Progressive disclosure](https://www.nngroup.com/articles/progressive-disclosure/)
-- [Laws of UX](https://lawsofux.com/) (Jakob's, Hick's, Fitts's and Miller's laws)
-- W3C: [What's new in WCAG 2.2](https://www.w3.org/WAI/standards-guidelines/wcag/new-in-22/)
-- ALT: [Improving UX in large-scale online courses](https://altc.alt.ac.uk/blog/2026/02/from-overwhelmed-to-engaged-improving-ux-in-large%e2%80%91scale-online-courses-at-altc/) (cognitive load, one section per page)
+## Adding an app or a page
+
+1. Copy `design/tokens.css` and `design/base.css`; load tokens, then base, then your own CSS.
+2. Reuse the classes: `page`, `eyebrow`, `lead`, `btn` (+ `primary`, `big`), `card`, `entry-grid`, `how-grid`, `pill`, `meter`, `hero`, `credit`.
+3. Check dark **and** light, at 1440, 820 and 390px wide, before calling it done.
+
+## Verifying
+
+A page is on-brand when, side by side with System Learn, the nav height, heading size, card radius, button style,
+accent colour and footer strip are indistinguishable. The quickest check is the home page at 1440 × 900.

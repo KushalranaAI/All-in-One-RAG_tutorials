@@ -325,3 +325,7 @@ a.card:hover { border-color: var(--line-2); text-decoration: none; transform: tr
 .react-flow__controls button:hover { background: var(--panel-2); }
 .react-flow__attribution { background: transparent !important; opacity: 0.35; }
 .react-flow__attribution a { color: var(--muted) !important; }
+
+/* long button labels (e.g. "Continue: <lesson title>") wrap inside the hero instead of pushing the page wider */
+.hero-copy { min-width: 0; }
+.hero .btn { white-space: normal; text-align: left; max-width: 100%; }
