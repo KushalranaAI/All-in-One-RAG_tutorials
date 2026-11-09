@@ -4,20 +4,10 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { type Nav, lessonId, projectId } from "@/lib/nav";
 import { useProgress } from "@/lib/progress";
-import BuiltBy from "./Brand";
-import Icon, { type IconName, sectionIcon } from "./ui/Icon";
+import Icon, { sectionIcon } from "./ui/Icon";
 import Ring from "./ui/Ring";
 
-const LINKS: { href: string; label: string; icon: IconName }[] = [
-  { href: "/", label: "Dashboard", icon: "home" },
-  { href: "/progress", label: "My progress", icon: "trophy" },
-  { href: "/lab", label: "Retrieval lab", icon: "flask" },
-  { href: "/map", label: "Technique map", icon: "compass" },
-  { href: "/toolkit", label: "Toolkit & MCP servers", icon: "box" },
-  { href: "/projects", label: "Projects", icon: "rocket" },
-];
-
-export default function Sidebar({ nav, open, onNavigate }: { nav: Nav; open: boolean; onNavigate: () => void }) {
+export default function Outline({ nav, open, onNavigate }: { nav: Nav; open: boolean; onNavigate: () => void }) {
   const pathname = usePathname();
   const progress = useProgress();
   const activeRef = useRef<HTMLAnchorElement>(null);
@@ -30,35 +20,7 @@ export default function Sidebar({ nav, open, onNavigate }: { nav: Nav; open: boo
   const done = nav.sections.reduce((n, s) => n + s.lessons.filter((l) => progress.done[lessonId(s.slug, l.slug)]).length, 0);
 
   return (
-    <nav className={`sidebar ${open ? "open" : ""}`} aria-label="Course navigation" onClick={(e) => (e.target as HTMLElement).closest("a") && onNavigate()}>
-      <Link href="/" className="brand">
-        <span className="brand-mark" aria-hidden="true">
-          <svg viewBox="0 0 32 32" width="30" height="30">
-            <rect width="32" height="32" rx="9" fill="var(--brand-solid)" />
-            <circle cx="13.5" cy="13.5" r="5.5" fill="none" stroke="#fff" strokeWidth="2.6" />
-            <path d="m17.6 17.6 4.4 4.4" stroke="#fff" strokeWidth="2.6" strokeLinecap="round" />
-            <path d="M21 8.5h4.5M23.25 6.25v4.5" stroke="#fff" strokeWidth="2" strokeLinecap="round" />
-          </svg>
-        </span>
-        <span>
-          <b>RAG in 30 Days</b>
-          <small>Retrieval → agents → MCP</small>
-        </span>
-      </Link>
-
-      <ul className="side-links">
-        {LINKS.map((l) => {
-          const active = l.href === "/" ? pathname === "/" : pathname.startsWith(l.href);
-          return (
-            <li key={l.href}>
-              <Link href={l.href} className={active ? "active" : ""} aria-current={active ? "page" : undefined}>
-                <Icon name={l.icon} /> {l.label}
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
-
+    <nav className={`outline ${open ? "open" : ""}`} aria-label="Course navigation" onClick={(e) => (e.target as HTMLElement).closest("a") && onNavigate()}>
       <div className="side-heading">
         <span>30-day plan</span>
         <span className="muted">{done}/{total}</span>
@@ -126,7 +88,6 @@ export default function Sidebar({ nav, open, onNavigate }: { nav: Nav; open: boo
         </ul>
       </details>
 
-      <BuiltBy className="side-brand" />
     </nav>
   );
 }

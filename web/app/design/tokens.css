@@ -1,0 +1,113 @@
+/* =========================================================================
+   Kushal Rana learning apps - shared design tokens.
+   The same file ships in System Learn, AI Engineer Path, LLM 1 -> 100 and RAG in 30 Days
+   (see docs/DESIGN.md). A learner who knows one of them should already know the others:
+   same surfaces, same single emerald accent, same type, same radii, same motion.
+
+   Dark is the default. Light is opt-in through <html data-theme="light">.
+   Tokens first: components use these names and never a raw colour.
+   ========================================================================= */
+:root,
+:root[data-theme="dark"] {
+  /* surfaces: each step is one layer "up" */
+  --bg: #0a0c10;
+  --bg-2: #0f1218;
+  --panel: #141821;
+  --panel-2: #1a1f2a;
+  --panel-3: #222836;
+  --line: #232937;
+  --line-2: #2e3546;
+  --line-3: #3d4659;
+
+  /* text */
+  --text: #e8ebf2;
+  --text-2: #b9c0cf;
+  --muted: #828aa0;
+  --faint: #5b6378;
+  --prose: #d6dbe5;
+
+  /* brand + status */
+  --accent: #10b981;
+  --accent-strong: #34d399;
+  --accent-2: #5eead4;
+  --accent-soft: #10b9811a;
+  --accent-line: #10b98140;
+  --on-accent: #03130c;
+  --good: #22c55e;
+  --warm: #eab308;
+  --hot: #f97316;
+  --bad: #ef4444;
+  --info: #38bdf8;
+  --ai: #818cf8;
+  --ai-text: #c7d2fe;
+
+  /* canvas + code */
+  --wire: #343c4f;
+  --wire-live: #5d6880;
+  --grid: #1f2533;
+  --code-bg: #0f1218;
+  --code-text: #d6dbe5;
+
+  /* depth */
+  --shadow: 0 1px 0 #ffffff08 inset, 0 8px 24px #00000059;
+  --shadow-lg: 0 1px 0 #ffffff0a inset, 0 20px 50px #00000080;
+  --ring: 0 0 0 3px #10b98140;
+  --scrim: #00000099;
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  --bg: #f4f6f9;
+  --bg-2: #ffffff;
+  --panel: #ffffff;
+  --panel-2: #f1f3f7;
+  --panel-3: #e5e9f0;
+  --line: #e0e5ed;
+  --line-2: #cfd6e1;
+  --line-3: #b9c2d1;
+
+  --text: #11151c;
+  --text-2: #374151;
+  --muted: #636c7e;
+  --faint: #8c94a4;
+  --prose: #2a3140;
+
+  --accent: #059669;
+  --accent-strong: #047857;
+  --accent-2: #0d9488;
+  --accent-soft: #0596691a;
+  --accent-line: #05966940;
+  --on-accent: #ffffff;
+  --good: #16a34a;
+  --warm: #a16207;
+  --hot: #c2410c;
+  --bad: #dc2626;
+  --info: #0369a1;
+  --ai: #4f46e5;
+  --ai-text: #4338ca;
+
+  --wire: #b8c0cf;
+  --wire-live: #7b8599;
+  --grid: #e6eaf1;
+  --code-bg: #0f1218; /* code stays dark in both themes: one syntax palette, same look everywhere */
+  --code-text: #d6dbe5;
+
+  --shadow: 0 1px 2px #1118270d, 0 8px 22px #1118270f;
+  --shadow-lg: 0 18px 44px #11182722;
+  --ring: 0 0 0 3px #05966933;
+  --scrim: #11182755;
+  color-scheme: light;
+}
+
+/* shape, rhythm, type: identical in both themes */
+:root {
+  --r-sm: 8px;
+  --r: 12px;
+  --r-lg: 16px;
+  --radius: var(--r);
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --nav-h: 56px;
+
+  --font: "Inter Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: "JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}

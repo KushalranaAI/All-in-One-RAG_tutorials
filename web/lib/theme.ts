@@ -1,17 +1,16 @@
-// Light / dark / system theme. The inline script in layout.tsx applies it before first paint;
+// Dark (default) / light theme. The inline script in layout.tsx applies it before first paint;
 // this module changes it afterwards and lets components (mermaid, canvas widgets) react to it.
 import { useSyncExternalStore } from "react";
 import { THEME_KEY } from "./theme-script";
 
-export type ThemePref = "system" | "light" | "dark";
+export type ThemePref = "light" | "dark";
 const KEY = THEME_KEY;
 
 export function getThemePref(): ThemePref {
   try {
-    const v = localStorage.getItem(KEY);
-    return v === "light" || v === "dark" ? v : "system";
+    return localStorage.getItem(KEY) === "light" ? "light" : "dark";
   } catch {
-    return "system";
+    return "dark";
   }
 }
 
@@ -21,7 +20,7 @@ export function applyTheme(pref: ThemePref) {
   } catch {
     /* not persisted */
   }
-  const dark = pref === "dark" || (pref === "system" && matchMedia("(prefers-color-scheme: dark)").matches);
+  const dark = pref === "dark";
   document.documentElement.dataset.theme = dark ? "dark" : "light";
   document.documentElement.style.colorScheme = dark ? "dark" : "light";
 }
@@ -38,5 +37,5 @@ function subscribe(fn: () => void) {
 
 /** The theme actually showing right now: "light" or "dark". */
 export function useResolvedTheme(): "light" | "dark" {
-  return useSyncExternalStore(subscribe, () => (isDark() ? "dark" : "light"), () => "light");
+  return useSyncExternalStore(subscribe, () => (isDark() ? "dark" : "light"), () => "dark");
 }

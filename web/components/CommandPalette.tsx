@@ -93,11 +93,10 @@ export default function CommandPalette({ nav }: { nav: Nav }) {
       {
         id: "x-theme",
         group: "Actions",
-        title: "Cycle theme (system / light / dark)",
+        title: "Switch theme (dark / light)",
         icon: "moon",
         run: () => {
-          const order = ["system", "light", "dark"] as const;
-          applyTheme(order[(order.indexOf(getThemePref()) + 1) % 3]);
+          applyTheme(getThemePref() === "dark" ? "light" : "dark");
         },
       },
     ];

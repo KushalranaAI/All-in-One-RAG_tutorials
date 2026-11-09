@@ -1,87 +1,40 @@
 /* ==========================================================================
-   RAG in 30 Days design system (shared with ML 1 → 100: same tokens, cyan accent)
-   Principles: clear hierarchy · one accent · generous whitespace · visible feedback ·
-   keyboard + screen-reader first · motion only where it explains something.
-   Everything below uses the tokens in :root / [data-theme="dark"] - no raw colours in components.
+   RAG in 30 Days
+   Tokens and shared components come from design/tokens.css and design/base.css (same files as System Learn,
+   AI Engineer Path and LLM 1 -> 100). This file adds only what is specific to this app: lessons, widgets,
+   the lab, quizzes and the AI panel. The names below are the old RAG token names, kept as aliases of the
+   shared ones so every component here follows the shared palette.
    ========================================================================== */
+@import "./design/tokens.css";
 
 :root {
-  --bg: #f6f8fa;
-  --surface: #ffffff;
-  --surface-2: #f1f2f8;
-  --surface-3: #e5e8f1;
-  --text: #161a2b;
-  --text-2: #3f465b;
-  --muted: #5f677c;
-  --border: #e2e4ee;
-  --border-strong: #c7ccdc;
+  --surface: var(--panel);
+  --surface-2: var(--panel-2);
+  --surface-3: var(--panel-3);
+  --border: var(--line);
+  --border-strong: var(--line-2);
 
-  --brand: #0e7490;
-  --brand-solid: #0e7490;
-  --brand-hover: #155e75;
-  --on-brand: #ffffff;
-  --brand-soft: #e0f4f8;
+  --brand: var(--accent-strong);
+  --brand-solid: var(--accent);
+  --brand-hover: var(--accent-strong);
+  --on-brand: var(--on-accent);
+  --brand-soft: var(--accent-soft);
 
-  --good: #15803d;
-  --good-soft: #e5f6ec;
-  --warn: #b45309;
-  --warn-soft: #fff1da;
-  --bad: #b91c1c;
-  --bad-soft: #fde9e9;
+  --warn: var(--warm);
+  --good-soft: color-mix(in srgb, var(--good) 12%, transparent);
+  --warn-soft: color-mix(in srgb, var(--warm) 12%, transparent);
+  --bad-soft: color-mix(in srgb, var(--bad) 12%, transparent);
 
-  --code-bg: #0f1420;
-  --code-bar: #171d2c;
-  --code-text: #d6deeb;
-  --inline-code: #eceef6;
+  --code-bar: var(--panel);
+  --inline-code: var(--panel-2);
+  --shadow-sm: 0 1px 2px #0000003d;
+  --radius-sm: var(--r-sm);
+  --radius: var(--r);
+  --radius-lg: var(--r-lg);
 
-  --shadow-sm: 0 1px 2px rgb(20 24 50 / 0.06);
-  --shadow: 0 1px 2px rgb(20 24 50 / 0.05), 0 10px 28px -10px rgb(20 24 50 / 0.14);
-  --shadow-lg: 0 30px 70px -16px rgb(20 24 50 / 0.4);
-
-  --radius-sm: 8px;
-  --radius: 14px;
-  --radius-lg: 22px;
-
-  --sidebar-w: 288px;
+  --sidebar-w: 300px;
   --ai-w: 420px;
-  --topbar-h: 56px;
-  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
-  --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --mono: ui-monospace, "SF Mono", "Cascadia Code", "JetBrains Mono", Menlo, Consolas, monospace;
-  color-scheme: light;
-}
-
-[data-theme="dark"] {
-  --bg: #0a0e14;
-  --surface: #131722;
-  --surface-2: #1a1f2d;
-  --surface-3: #283048;
-  --text: #eceff8;
-  --text-2: #c0c6d8;
-  --muted: #98a1b8;
-  --border: #252b3d;
-  --border-strong: #38405a;
-
-  --brand: #67d8ee;
-  --brand-solid: #0e7490;
-  --brand-hover: #0f86a6;
-  --brand-soft: rgb(34 211 238 / 0.13);
-
-  --good: #4ade80;
-  --good-soft: rgb(74 222 128 / 0.12);
-  --warn: #fbbf24;
-  --warn-soft: rgb(251 191 36 / 0.12);
-  --bad: #f87171;
-  --bad-soft: rgb(248 113 113 / 0.12);
-
-  --code-bg: #0a0d16;
-  --code-bar: #121826;
-  --inline-code: #1f2536;
-
-  --shadow-sm: none;
-  --shadow: 0 1px 0 rgb(255 255 255 / 0.03) inset, 0 12px 30px -12px rgb(0 0 0 / 0.6);
-  --shadow-lg: 0 30px 80px -10px rgb(0 0 0 / 0.8);
-  color-scheme: dark;
+  --topbar-h: var(--nav-h);
 }
 
 /* ---------------------------------------------------------------- base */
@@ -119,17 +72,6 @@ button { cursor: pointer; }
 .clamp { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 
 :focus-visible { outline: 3px solid color-mix(in srgb, var(--brand-solid) 55%, transparent); outline-offset: 2px; border-radius: 6px; }
-.built-by { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 0.75rem; color: var(--muted); }
-.built-by a { color: var(--text-2); }
-.built-by b { font-weight: 650; }
-.social-links { display: inline-flex; gap: 2px; }
-.social-links a { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 8px; color: var(--muted); }
-.social-links a:hover { background: var(--brand-soft); color: var(--brand); text-decoration: none; }
-.side-brand { position: sticky; bottom: -40px; margin: 20px -12px -40px; padding: 10px 20px 14px; background: var(--surface); border-top: 1px solid var(--border); }
-.site-footer { max-width: 1120px; margin: -72px auto 0; padding: 0 40px 24px; }
-.site-footer .built-by { justify-content: flex-end; }
-@media (max-width: 900px) { .site-footer { padding: 0 16px 20px; } .site-footer .built-by { justify-content: center; } }
-@media print { .site-footer, .side-brand { display: none; } }
 .hosted-banner { padding: 8px 20px; font-size: 0.85rem; text-align: center; background: var(--brand-soft); color: var(--text-2); border-bottom: 1px solid var(--border); }
 .hosted-banner a { font-weight: 600; }
 .skip-link { position: absolute; left: 12px; top: -60px; z-index: 200; background: var(--brand-solid); color: #fff; padding: 8px 14px; border-radius: 8px; }
@@ -205,16 +147,24 @@ button { cursor: pointer; }
 .empty-page { padding: 80px 0; display: grid; justify-items: center; gap: 8px; color: var(--muted); }
 
 /* ---------------------------------------------------------------- app shell */
-.app { display: grid; grid-template-columns: var(--sidebar-w) minmax(0, 1fr); min-height: 100vh; }
-.app[data-ai="open"] { grid-template-columns: var(--sidebar-w) minmax(0, 1fr) min(var(--ai-w), 60vw); }
-.content { min-width: 0; container: content / inline-size; }
-.main { width: 100%; max-width: 1120px; margin: 0 auto; padding: 32px 40px 120px; animation: rise 0.25s var(--ease); }
+/* The document scrolls (not an inner panel), so anchors, print and mermaid keep working; the nav stays pinned. */
+.app { min-height: 100vh; height: auto; display: flex; flex-direction: column; }
+.nav { position: sticky; top: 0; z-index: 30; }
+.app-body { flex: 1; display: flex; align-items: flex-start; min-width: 0; }
+.content { flex: 1; min-width: 0; container: content / inline-size; }
+.main { width: 100%; max-width: 1120px; margin: 0 auto; padding: 40px 40px 96px; animation: rise 0.25s var(--ease); }
+.outline { position: sticky; top: var(--nav-h); height: calc(100vh - var(--nav-h)); width: var(--sidebar-w); flex: none; overflow-y: auto; overscroll-behavior: contain; background: var(--bg-2); border-right: 1px solid var(--line); padding: 14px 12px 40px; scrollbar-width: thin; z-index: 20; }
+.nav .menu-btn { display: none; }
+.nav .search-btn { flex: none; display: inline-flex; align-items: center; gap: 8px; height: 34px; padding: 0 8px 0 11px; min-width: 176px; border: 1px solid var(--line); background: transparent; color: var(--muted); border-radius: var(--r-sm); font-size: 0.84rem; cursor: pointer; transition: border-color 0.15s, color 0.15s; }
+.nav .search-btn:hover { border-color: var(--line-2); color: var(--text); }
+.nav .search-btn span { flex: 1; text-align: left; }
+.nav .ai-chip { background: transparent; cursor: pointer; }
+.nav .ai-chip.on { color: var(--accent-strong); border-color: var(--accent-line); background: var(--accent-soft); }
+.nav .read-progress { position: absolute; left: 0; right: 0; bottom: -1px; top: auto; width: auto; height: 2px; overflow: hidden; background: transparent; transition: none; }
+.nav .read-progress > div { height: 100%; background: var(--accent); transform: scaleX(0); transform-origin: left; }
+.btn.lg { padding: 11px 20px; font-size: 0.97rem; border-radius: 10px; }
+.side-links { list-style: none; margin: 0; padding: 0; }
 
-.sidebar { position: sticky; top: 0; height: 100vh; overflow-y: auto; overscroll-behavior: contain; background: var(--surface); border-right: 1px solid var(--border); padding: 16px 12px 40px; scrollbar-width: thin; z-index: 40; }
-.brand { display: flex; align-items: center; gap: 10px; padding: 6px 8px 14px; color: var(--text); text-decoration: none !important; }
-.brand b { display: block; font-size: 1.05rem; letter-spacing: -0.02em; }
-.brand small { display: block; color: var(--muted); font-size: 0.76rem; }
-.brand-mark { display: grid; }
 .side-links, .nav-section ul { list-style: none; margin: 0; padding: 0; }
 .side-links { display: grid; gap: 2px; margin-bottom: 14px; }
 .side-links a { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 10px; color: var(--text-2); font-weight: 550; font-size: 0.92rem; text-decoration: none; }
@@ -237,57 +187,35 @@ button { cursor: pointer; }
 .status.started { color: var(--warn); }
 .status.new { color: var(--border-strong); }
 .ring-icon { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--surface-2); color: var(--text-2); flex: none; }
-
-.topbar { position: sticky; top: 0; z-index: 30; height: var(--topbar-h); display: flex; align-items: center; gap: 12px; padding: 0 20px; background: color-mix(in srgb, var(--bg) 94%, transparent); backdrop-filter: blur(14px) saturate(1.2); -webkit-backdrop-filter: blur(14px) saturate(1.2); border-bottom: 1px solid var(--border); }
-.menu-btn { display: none; }
-.crumbs { display: flex; align-items: center; min-width: 0; flex: 1; font-size: 0.88rem; color: var(--muted); overflow: hidden; white-space: nowrap; }
-.crumb { display: inline-flex; align-items: center; gap: 4px; min-width: 0; }
-.crumb > span:last-child, .crumb a { overflow: hidden; text-overflow: ellipsis; }
-.crumb a { color: var(--muted); }
-.crumb a:hover { color: var(--text); }
-.crumb [aria-current] { color: var(--text); font-weight: 600; }
-.sep { opacity: 0.6; }
-.top-actions { display: flex; align-items: center; gap: 6px; flex: none; }
-.search-btn { display: inline-flex; align-items: center; gap: 8px; height: 38px; padding: 0 8px 0 12px; min-width: 190px; border: 1px solid var(--border-strong); background: var(--surface); color: var(--muted); border-radius: 10px; font-size: 0.88rem; }
-.search-btn:hover { border-color: var(--brand-solid); color: var(--text); }
-.search-btn span { flex: 1; text-align: left; }
-.streak { display: inline-flex; align-items: center; gap: 4px; height: 36px; padding: 0 10px; border-radius: 999px; background: var(--surface-2); color: var(--muted); font-weight: 700; font-size: 0.88rem; text-decoration: none !important; }
-.streak.on { background: var(--warn-soft); color: var(--warn); }
-.ai-toggle { min-height: 38px; border-color: transparent; background: var(--brand-soft); color: var(--brand); }
-.ai-toggle:hover { border-color: var(--brand-solid); }
-.ai-toggle.on { background: var(--brand-solid); color: var(--on-brand); }
-.read-progress { position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; overflow: hidden; }
-.read-progress > div { height: 100%; background: var(--brand-solid); transform: scaleX(0); transform-origin: left; }
 .scrim { position: fixed; inset: 0; z-index: 35; background: rgb(6 8 16 / 0.5); animation: fade 0.2s; }
 @keyframes fade { from { opacity: 0; } }
 .ai-scrim { z-index: 55; }
-
-/* docked AI on wide screens; overlay everywhere else */
-.ai-panel { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; min-width: 0; background: var(--surface); border-left: 1px solid var(--border); }
+.ai-panel { position: sticky; top: var(--nav-h); height: calc(100vh - var(--nav-h)); flex: none; width: min(var(--ai-w), 60vw); display: flex; flex-direction: column; min-width: 0; background: var(--surface); border-left: 1px solid var(--border); }
 .ai-panel[hidden] { display: none; }
 .ai-resize { position: absolute; left: -4px; top: 0; bottom: 0; width: 9px; z-index: 5; cursor: col-resize; touch-action: none; }
 .ai-resize::after { content: ""; position: absolute; left: 4px; top: 0; bottom: 0; width: 2px; background: transparent; transition: background 0.15s; }
 .ai-resize:hover::after, .ai-resize:focus-visible::after, body.resizing .ai-resize::after { background: var(--brand-solid); }
 body.resizing { cursor: col-resize; user-select: none; }
 body.resizing iframe { pointer-events: none; }
-@media (max-width: 600px) { .ai-resize { display: none; } }
-@media (min-width: 1360px) { .ai-scrim { display: none; } }
-@media (max-width: 1359px) {
-  .app[data-ai="open"] { grid-template-columns: var(--sidebar-w) minmax(0, 1fr); }
-  .ai-panel { position: fixed; top: 0; right: 0; bottom: 0; width: min(100vw, var(--ai-w)); z-index: 60; box-shadow: var(--shadow-lg); animation: slide-in 0.25s var(--ease); }
-}
 @keyframes slide-in { from { transform: translateX(30px); opacity: 0; } }
 
+/* docked AI on wide screens; overlay everywhere else */
+@media (min-width: 1360px) { .ai-scrim { display: none; } }
+@media (max-width: 1359px) {
+  .ai-panel { position: fixed; top: 0; right: 0; bottom: 0; height: auto; width: min(100vw, var(--ai-w)); z-index: 60; box-shadow: var(--shadow-lg); animation: slide-in 0.25s var(--ease); }
+}
+@keyframes slide-in { from { transform: translateX(30px); opacity: 0; } }
+@media (max-width: 1100px) {
+  .nav .search-btn { min-width: 0; width: 36px; padding: 0; justify-content: center; }
+  .nav .search-btn span, .nav .search-btn kbd { display: none; }
+}
+@media (max-width: 1000px) {
+  .nav .menu-btn { display: inline-grid; }
+  .outline { position: fixed; z-index: 50; left: 0; top: var(--nav-h); bottom: 0; height: auto; width: min(86vw, var(--sidebar-w)); transform: translateX(-102%); transition: transform 0.25s var(--ease); }
+  .outline.open { transform: none; box-shadow: var(--shadow-lg); }
+}
 @media (max-width: 900px) {
-  .app, .app[data-ai="open"] { grid-template-columns: minmax(0, 1fr); }
-  .sidebar { position: fixed; z-index: 50; left: 0; top: 0; width: min(86vw, var(--sidebar-w)); transform: translateX(-102%); transition: transform 0.25s var(--ease); }
-  .sidebar.open { transform: none; box-shadow: var(--shadow-lg); }
-  .menu-btn { display: inline-grid; }
-  .main { padding: 24px 16px 100px; }
-  .topbar { padding: 0 10px; }
-  .search-btn { min-width: 0; width: 40px; padding: 0; justify-content: center; }
-  .search-btn span, .search-btn kbd, .ai-toggle span, .composer-foot span:first-child { display: none; }
-  .ai-toggle { width: 40px; padding: 0; }
+  .main { padding: 24px 16px 80px; }
 }
 
 /* ---------------------------------------------------------------- page structure */
@@ -418,12 +346,6 @@ pre code { background: none; padding: 0; }
 
 /* ---------------------------------------------------------------- dashboard */
 .dashboard { display: grid; gap: 8px; }
-.hero { display: flex; align-items: center; justify-content: space-between; gap: 32px; padding: 36px; border-radius: var(--radius-lg); background: radial-gradient(900px 320px at 100% -10%, var(--brand-soft), transparent 70%), var(--surface); overflow: hidden; }
-.hero-text { max-width: 620px; }
-.hero h1 { font-size: clamp(1.9rem, 1.4rem + 2vw, 2.7rem); line-height: 1.12; }
-.hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
-.hero-ring { display: grid; justify-items: center; gap: 8px; flex: none; }
-@media (max-width: 760px) { .hero { flex-direction: column-reverse; align-items: flex-start; padding: 24px; } .hero-ring { align-self: center; } }
 .stats { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); margin: 16px 0; }
 .stat-card { display: flex; align-items: center; gap: 14px; padding: 16px 18px; }
 .stat-icon { display: inline-grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: var(--brand-soft); color: var(--brand); flex: none; }
@@ -780,3 +702,10 @@ pre code { background: none; padding: 0; }
 details.module:target { border-color: var(--brand-solid); box-shadow: 0 0 0 1px var(--brand-solid) inset; }
 .run-cmdline .chip-btn { background: rgb(255 255 255 / 0.06); border-color: transparent; color: #c3cbdd; }
 .run-cmdline .chip-btn:hover { background: rgb(255 255 255 / 0.12); color: #fff; }
+
+/* phone: the nav sheds the streak chip and tightens, so it never overflows */
+@media (max-width: 560px) {
+  .nav .nav-progress { display: none; }
+  .nav nav a { padding: 7px 8px; }
+  .nav { gap: 6px; }
+}

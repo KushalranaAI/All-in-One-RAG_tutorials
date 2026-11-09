@@ -9,25 +9,20 @@ const MARKS: Record<string, React.ReactNode> = {
   medium: <path d="M3.500 6.800C3.500 4.700 5.200 3 7.300 3h9.400c2.100 0 3.800 1.700 3.800 3.800v10.400c0 2.100-1.700 3.800-3.800 3.800H7.300c-2.100 0-3.800-1.700-3.800-3.800V6.800Zm4.400 2.600v5.300c0 .6-.4.900-.9.700V9.900l1.600 2.800 1.600-2.800v4.600c0 .5.300.7.700.700H8.400c.600 0 1-.2 1-.9V9.400h-1.500Zm7.200-.4c-1.200 0-2 1.200-2 2.800s.9 2.800 2 2.800 2-1.200 2-2.800-.9-2.800-2-2.800Zm3.300.1c-.4 0-.7 1.100-.7 2.700s.3 2.700.7 2.700.7-1.100.7-2.700-.3-2.700-.7-2.700Z" />,
 };
 
-/** The four profile links as small icon buttons. Opens in a new tab. */
-export function SocialLinks({ size = 16 }: { size?: number }) {
+/** The credit strip at the bottom of every page: small, quiet, and out of the way of the content (same as the other apps). */
+export default function Credit() {
   return (
-    <span className="social-links">
-      {BRAND.links.map((l) => (
-        <a key={l.id} href={l.href} target="_blank" rel="noopener noreferrer me" aria-label={`${BRAND.name} on ${l.label}`} title={l.label}>
-          <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">{MARKS[l.id]}</svg>
-        </a>
-      ))}
-    </span>
-  );
-}
-
-/** "Built by Kushal Rana" + links, kept small and out of the way. */
-export default function BuiltBy({ className = "" }: { className?: string }) {
-  return (
-    <div className={`built-by ${className}`}>
-      <span>Built by <a href={BRAND.links[0].href} target="_blank" rel="noopener noreferrer me"><b>{BRAND.name}</b></a></span>
-      <SocialLinks />
-    </div>
+    <footer className="credit">
+      <span className="credit-text">
+        Built by <a href={BRAND.links[0].href} target="_blank" rel="noopener noreferrer me">{BRAND.name}</a>
+      </span>
+      <nav className="credit-links" aria-label={`${BRAND.name} on the web`}>
+        {BRAND.links.map((l) => (
+          <a key={l.id} href={l.href} target="_blank" rel="noopener noreferrer me" title={`${BRAND.name} on ${l.label}`} aria-label={`${BRAND.name} on ${l.label}`}>
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true" focusable="false">{MARKS[l.id]}</svg>
+          </a>
+        ))}
+      </nav>
+    </footer>
   );
 }
