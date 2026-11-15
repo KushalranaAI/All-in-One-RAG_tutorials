@@ -2,6 +2,26 @@
 
 **Goal:** put Days 1-5 together into a working question-answering system over the handbook.
 
+## In everyday life
+
+A small restaurant does not start from raw vegetables when an order arrives. In the morning the cook washes, cuts and labels everything and puts it on shelves. When an order comes in, the cook takes the right items off the shelves, follows the recipe, and sends out the plate. The slow work happens once. Each order is quick.
+
+A **RAG pipeline** (the full chain from your documents to a finished answer) works the same way. The morning prep is **indexing** (preparing your documents once): load the files, chunk them, embed each chunk, and store them in a **vector store** (a shelf that finds items by meaning). The order is the **query** (one question from a user): embed the question, fetch the **top-k** chunks (the k closest matches, here 4), put them in a prompt, and let Claude write the answer.
+
+Today's version is plain on purpose, about fifty lines. Later days improve one step at a time. Unlike a kitchen, when the shelf lacks the right item the pipeline should say it does not know, not improvise.
+
+**Where you meet it.** A startup's internal "ask the handbook" bot. A staff member asks "Which plan includes SSO?" and gets an answer with its sources. Without a pipeline, someone searches five documents by hand, or the model guesses.
+
+```scene
+title: A kitchen that preps before orders
+step: 🥬 In the morning the cook washes and cuts all the vegetables | Load and chunk documents
+step: 🏷️ Every item is labelled and put on a shelf by kind | Embed and store in vector store
+step: 🧾 An order arrives from a customer | User question
+step: 🧺 The cook takes the four best-matching items off the shelf | Top-k retrieval
+step: 🍛 The cook follows the recipe with those items and serves the plate | Prompt Claude, answer with sources
+takeaway: Prepare your documents once, then every question is just a lookup plus one model call.
+```
+
 ## The pipeline
 ```
 INDEX (once)      load_directory ─► chunk_by_headings ─► embed ─► SimpleVectorStore

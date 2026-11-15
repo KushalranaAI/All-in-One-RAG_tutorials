@@ -2,6 +2,26 @@
 
 **Goal:** search with *small* precise chunks, but give the LLM the *bigger* surrounding context.
 
+## In everyday life
+
+You are reading a rental agreement and press Ctrl+F for "deposit". It jumps to one line: "The deposit is refundable within 30 days." You almost stop there. But the next line says "unless the flat is damaged", and the line before explains which deposit it means. One line found the spot. You needed the whole clause to answer.
+
+**Small-to-big retrieval** (search with small pieces, then hand over the bigger text around them) works the same way. Small chunks, even single sentences, give focused **embeddings** (numbers that stand for meaning), so search finds the exact spot. But the model needs the **parent** (the larger section a small piece came from) to see conditions and exceptions. So you index the small **children**, and when one matches, you return its parent. A **sentence window** version returns the matched sentence plus a few neighbours.
+
+The price is more text per question, so you send more tokens. Unlike your own reading, the system decides in advance how big the bigger piece is, when you split the document.
+
+**Where you meet it.** An insurance help assistant. A question about the waiting period for existing illnesses matches one sentence. Alone, that sentence misses the exceptions. With its parent paragraph, the answer states the rule and the exceptions together.
+
+```scene
+title: Ctrl+F in a rental agreement
+step: 📑 The agreement is cut into small lines, each linked to its clause | Children linked to parents
+step: 🙋 You search for the word deposit | User question
+step: 📍 Search jumps to the single best line | Small child chunk matched
+step: 📖 You read the whole clause around that line | Parent section returned
+step: ✅ The exception in the next line changes your answer | LLM sees the full context
+takeaway: Search with small pieces to find the spot, then read the bigger piece to understand it.
+```
+
 ## The chunk-size dilemma
 - Small chunks (1-3 sentences) → embeddings are focused → **better retrieval**.
 - Big chunks (whole sections) → the LLM sees definitions, conditions and exceptions → **better answers**.

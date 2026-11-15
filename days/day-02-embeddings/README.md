@@ -2,6 +2,26 @@
 
 **Goal:** understand how text becomes vectors, and how "closeness" of vectors measures meaning.
 
+## In everyday life
+
+Think of the map of your city. A friend says "meet me near the big temple", and you know where to go, because every place has a position and places that are close in real life are close on the map.
+
+An **embedding** (a list of numbers that stands for the meaning of a piece of text) gives every sentence a spot on a map of meaning. A program called the **embedding model** (the tool that turns text into those numbers) draws that map. Sentences about the same thing land near each other, even when they share no words. "How do I get my money back?" and "Refund policy for monthly plans" sit side by side.
+
+Each spot is written as a **vector** (a list of numbers, like map coordinates, but hundreds of them instead of two). To compare two sentences, you measure how far apart their spots are. That measure is **cosine similarity** (a score that is high when two vectors point the same way). Unlike a street map, this one has hundreds of directions, so nobody can draw it. The idea of near and far still works the same.
+
+**Where you meet it.** A shop's help-page search. A customer types "money back", but the help pages only say "refund", so a plain word search finds nothing and the customer gives up. Searching by embeddings places both phrases near each other, so the refund page comes up first.
+
+```scene
+title: Finding help pages on a map of meaning
+step: 🗺️ One mapmaker places every help page on a map by what it is about | Embedding model makes vectors
+step: 📍 Each page gets its own pin, and pages on similar topics sit close | Documents stored as vectors
+step: 🙋 A customer asks in their own words and gets a pin too | Query embedded with the same model
+step: 📏 You measure the distance from the customer's pin to every page pin | Cosine similarity
+step: 🏆 The nearest pins are the best matches, even with different words | Ranked by meaning, not words
+takeaway: An embedding turns meaning into a position, so closeness of numbers means closeness of meaning.
+```
+
 ## What is an embedding?
 An embedding model maps text to a list of numbers (a vector), e.g. 384 floats. It is trained so that
 texts with **similar meaning** end up **close together** - even with no words in common:

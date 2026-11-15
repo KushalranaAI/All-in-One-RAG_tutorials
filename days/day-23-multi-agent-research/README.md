@@ -3,6 +3,27 @@
 **Goal:** build the pattern behind "deep research" products: a lead agent that plans, delegates
 research to sub-agents in parallel, writes a report, and revises it after critique.
 
+## In everyday life
+
+Think of a newspaper editor handed a big question, such as "Which of these two options should a small firm choose?" She does not read everything herself. She splits the question into smaller ones and sends a reporter on each, all at once. Each reporter returns short notes with sources. The editor writes a first draft from those notes only. A reviewer then marks claims with no source and parts that are missing, and the editor fixes them before publishing.
+
+That is the **orchestrator-workers** pattern. The **lead agent** (the orchestrator) plans and writes. The **workers** are sub-agents that each search, read and summarise one sub-question. A separate **critic** (a second model call that checks the draft) is better at spotting gaps than the writer is at checking its own work. Caps on rounds and tool calls keep the cost under control.
+
+Unlike a newsroom, the reporters here are cheaper, faster models, because reading is the bulk of the work.
+
+**Where you meet it.** A startup asks for a briefing on which of two plans to buy. One search would give a thin answer. The team splits it into topics such as price, support and security, researches them in parallel, and returns a cited report that a critic has already checked.
+
+```scene
+title: The newsroom with a reviewer
+step: 📰 An editor gets a big question and splits it into smaller ones | Lead plans sub-questions
+step: 🏃 She sends a reporter on each small question, all at once | Workers run in parallel
+step: 🔎 Each reporter searches and reads, then returns short sourced notes | Condensed findings with citations
+step: ✍️ The editor writes the first draft from the notes only | Lead writes the draft
+step: 🧐 A separate reviewer marks missing sources and gaps | Critic checks the draft
+step: 🔁 The editor fixes the marks, at most twice, then publishes | Revise, capped at 2 rounds
+takeaway: Plan, delegate in parallel, write from condensed notes, and let a critic check the draft.
+```
+
 ## Architecture
 ```
                  ┌──────────── Lead researcher (Claude Opus) ────────────┐

@@ -2,6 +2,27 @@
 
 **Goal:** ship it. Package the API and the MCP server, keep the index fresh, and know what to monitor.
 
+## In everyday life
+
+A tiffin service starts in your kitchen. The dal tastes right on your own stove, but running a canteen means the same dish must come out right on a different stove, for hundreds of people, every day, with nobody watching you cook. That gap is **deployment** (moving a working project onto a server where real users can reach it, and keeping it running).
+
+Three habits close the gap. First, **Docker** (a way to pack your app and everything it needs into one sealed box, called a **container**, that runs the same on any machine). Second, freshness: the menu changes, so you re-index only the documents that changed, spotted by comparing a **hash** (a short fingerprint of a file that changes whenever the file changes). Third, **monitoring** (watching numbers like errors, wait times and daily spend, with alerts), so you hear about problems before customers do.
+
+Unlike a canteen, a RAG system can give wrong answers while everything looks fine. That is why the checklist also includes a fixed set of test questions.
+
+**Where you meet it.** A team ships its internal policy bot. Without packaging and monitoring, it works on one laptop, goes stale when policies change, and nobody notices it started failing last Tuesday. With a container, a nightly refresh and alerts, it stays current and fails loudly instead of quietly.
+
+```scene
+title: From home kitchen to running canteen
+step: 🍱 The recipe is packed so it cooks the same on any stove | Docker image and container
+step: 🔑 The cash locker key stays with the manager, not on the menu | Secrets from the environment
+step: 🪟 One counter serves customers, a second serves partner shops | API and MCP server in compose
+step: 🌙 Each night only dishes with changed recipes get recooked | Incremental re-indexing by hash
+step: 📈 A board shows complaints, wait times and daily spend | Traces, dashboards and alerts
+step: 🧪 Before any menu change, a fixed taste test runs | Eval set run in CI
+takeaway: Shipping is not the finish line, because a live system needs refreshing, watching and testing.
+```
+
 ## What you deploy
 ```
             ┌──────────── docker compose ────────────┐

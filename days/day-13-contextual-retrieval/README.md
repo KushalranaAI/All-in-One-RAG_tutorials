@@ -3,6 +3,27 @@
 **Goal:** make every chunk self-explanatory by prepending LLM-written context, and use prompt caching
 to make that cheap.
 
+## In everyday life
+
+Imagine a page falls out of a thick folder at your office. At the top it says only "Price: 79 per month". Which plan? Which product? Nobody can tell, so the page is useless on its own. Search systems have the same problem. They cut documents into **chunks** (short passages that are stored and searched one at a time), and a chunk often loses the heading that explained it.
+
+**Contextual retrieval** fixes this by giving each chunk a short note before it is stored. A fast model reads the whole document and writes one or two sentences, such as "this is the price of the Pro plan". The note is glued to the chunk. The pair is then turned into **embeddings** (lists of numbers that capture meaning, so similar texts sit close together) and also indexed for keyword search.
+
+The catch is cost, because every note needs the whole document again. **Prompt caching** (the service remembers a long, repeated start of your request, so later requests read it quickly and cheaply) solves that. It only works when the repeated part comes first.
+
+**Where you meet it.** A software company's support bot is asked how much the Pro plan costs per month. Without notes, the price line looks like every other price line, and a chunk from the wrong plan can win. With notes, each chunk says which plan it describes, so the right one is found.
+
+```scene
+title: The loose page and its sticky note
+step: 🗂️ A loose page falls out of a folder and says only a price | A chunk without context
+step: 🤷 You ask which plan it belongs to and nobody can tell | Embedding cannot match the question
+step: 📝 A helper reads the whole folder and writes a one-line note for the page | LLM writes chunk context
+step: 📌 The note is stuck on the page so the two travel together | Prepend context to the chunk
+step: 🔎 Later you search, and the note makes the page easy to find | Embed and BM25 index context plus chunk
+step: 🧾 The folder is read once and remembered for every later note | Prompt caching of the document prefix
+takeaway: A chunk should say what it is about, so write that note before you store it.
+```
+
 ## The problem: chunks lose their context
 A chunk that says *"Daily backups are kept for 7 days on Starter, 30 days on Pro..."* is fine. But
 *"Price: $79 per month"* doesn't say **which plan** or **which company**. Its embedding can't match

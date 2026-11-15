@@ -33,6 +33,7 @@ export default function Nav({ nav, onMenu, hasOutline }: { nav: NavData; onMenu:
   const items: Item[] = [
     { href: nav.sections[0] ? `/learn/${nav.sections[0].slug}` : "/", label: "Learn", icon: "book", match: (p) => p.startsWith("/learn") },
     { href: "/lab", label: "Lab", icon: "flask", match: (p) => p.startsWith("/lab") },
+    { href: "/studio", label: "Studio", icon: "workflow", match: (p) => p.startsWith("/studio") },
     { href: "/map", label: "Technique map", icon: "compass", match: (p) => p.startsWith("/map") },
     { href: "/toolkit", label: "Toolkit", icon: "box", match: (p) => p.startsWith("/toolkit") },
     { href: "/projects", label: "Projects", icon: "rocket", match: (p) => p.startsWith("/projects") },

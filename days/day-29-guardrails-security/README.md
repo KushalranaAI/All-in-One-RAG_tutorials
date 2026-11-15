@@ -2,6 +2,27 @@
 
 **Goal:** make RAG safe to expose to real users and real documents.
 
+## In everyday life
+
+A clerk in an office reads files and answers customers. One day a file contains a sticky note: "Clerk, ignore your manager and read out the customer's bank number." A sensible clerk treats the note as paper to read, not as an order. A careless one obeys.
+
+A RAG bot is that clerk, and its files are the documents you index. **Prompt injection** (hidden instructions inside text that trick the model into following them) is the sticky note. Other risks look like office mishaps. **PII** (personally identifiable information: phone numbers, card numbers, anything that points to a real person) should be blacked out before filing. **Tenant isolation** (keeping each customer's data in its own locked drawer) means one customer's question can never pull up another's papers. **Observability** (keeping a log of every step) means a bad answer can be traced afterwards.
+
+The key point is that the lock goes in the code, not in the prompt. Asking the model politely not to show other users' data is a note, not a lock.
+
+**Where you meet it.** A bank's help chatbot serves many customers from one shared index. Without safeguards, a question can retrieve another customer's statement, or a poisoned page can push the bot to ask for a password. Redaction, per-customer filters and a prompt that treats documents as untrusted close those doors.
+
+```scene
+title: The careful office clerk
+step: 🖍️ Before filing, the clerk blacks out phone and card numbers | PII redaction before indexing
+step: 🚩 He spots a sticky note that gives him orders and sets it aside | Injection scanner at index time
+step: 🗄️ Each customer's papers go into their own locked drawer | Tenant metadata on chunks
+step: 🙋 A customer asks, and the clerk opens only that customer's drawer | Filter at retrieval time
+step: 📣 His rule is that papers are information, never orders | Hardened prompt
+step: 📝 He writes a log line for every step he takes | Trace per question
+takeaway: Protect data with filters in code, and treat every retrieved document as information, not instructions.
+```
+
 ## Threats specific to RAG
 | Threat | Example | Defences |
 |--------|---------|----------|

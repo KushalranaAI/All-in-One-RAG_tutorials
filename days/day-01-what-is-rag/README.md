@@ -2,6 +2,26 @@
 
 **Goal:** understand the problem RAG solves and make your first Claude API call.
 
+## In everyday life
+
+Imagine your first day at a call centre for an internet provider. A customer asks, "What is the refund window on the annual plan?" You were hired yesterday, so you do not know. A good agent does not guess. She opens the policy binder, finds the right page, reads it, and then answers.
+
+That is **RAG** (Retrieval-Augmented Generation: look up the relevant text first, then let the model write the answer from it). The **LLM** (large language model, the kind of AI that writes text, like Claude) plays the agent. It is clever and speaks well, but it only knows what it read during training. It has never seen your company's binder. Without a lookup it may produce a **hallucination** (a confident answer that is made up). The lookup is done by the **retriever** (the part that searches your documents and returns the best pieces).
+
+Unlike a human agent, the model does not keep the page in its head after the chat ends, so the lookup runs again for every question.
+
+**Where you meet it.** A bank's help chatbot that answers from the bank's own policy documents. Without RAG it answers from general knowledge and may quote a rule the bank does not follow. With RAG it first fetches the bank's current rule, so the reply matches the document and can point to it.
+
+```scene
+title: The new agent and the policy binder
+step: 🙋 A customer asks a question the new agent cannot answer from memory | User question
+step: 📚 The agent searches the binder for the pages that matter | Retriever finds top-k chunks
+step: 📖 She reads those pages together with the question | Chunks added to the prompt
+step: 🧠 She writes a reply using only what the pages say | LLM writes a grounded answer
+step: 🔖 She tells the customer which page the rule came from | Answer with citations
+takeaway: RAG lets the model look things up in your documents before it answers, instead of guessing from memory.
+```
+
 ## The problem
 A large language model (LLM) like Claude knows a lot, but only what was in its training data. It does
 **not** know:

@@ -2,6 +2,26 @@
 
 **Goal:** turn your pipeline into a web service: a JSON endpoint, a streaming endpoint, and a tiny UI.
 
+## In everyday life
+
+Think of two restaurants. In the first, you order and stare at an empty table for ten minutes, then everything arrives together. In the second, the waiter takes your order, puts water down at once, and brings each dish as it is ready. The cooking takes equally long, but the second restaurant feels much faster.
+
+Serving a RAG pipeline works the same way. An **API** (a doorway that other programs and web pages use to send a request to your code and get a reply) puts your pipeline behind a web address such as `/ask`. **Streaming** (sending the answer in small pieces as the model writes it, instead of in one lump) makes the first words appear in about a second. The browser receives the pieces through **Server-Sent Events** (a simple way for a server to keep pushing messages down one open connection). You also open the kitchen once in the morning, which means building the index at startup, not for every order.
+
+Unlike a dish, an answer is written word by word, so it really can be served while it is unfinished.
+
+**Where you meet it.** A company's internal help page with a chat box. If the page waits for the full answer, staff see a spinner for many seconds and think it is broken. With streaming, the sources appear first, then the answer types itself out, and people start reading right away.
+
+```scene
+title: A restaurant that serves as it cooks
+step: 🍳 In the morning the kitchen prepares everything once | Build the index at startup
+step: 🙋 A customer places an order at the counter | POST request to ask
+step: 📋 The waiter shows which ingredients will be used | Sources event sent first
+step: 🍽️ Dishes arrive one by one as they are ready | Text deltas streamed
+step: 🔔 The waiter says that is everything | Done event
+takeaway: Start showing the answer early, because waiting feels slower than the work really is.
+```
+
 ## Endpoints
 | Method | Path | Returns |
 |--------|------|---------|

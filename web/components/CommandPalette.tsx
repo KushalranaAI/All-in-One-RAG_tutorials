@@ -55,6 +55,7 @@ export default function CommandPalette({ nav }: { nav: Nav }) {
       { id: "p-home", group: "Pages", title: "Dashboard", icon: "home", run: go("/") },
       { id: "p-progress", group: "Pages", title: "My progress", icon: "trophy", keywords: "streak stats history", run: go("/progress") },
       { id: "p-lab", group: "Pages", title: "Retrieval lab", icon: "flask", keywords: "chunking embeddings bm25 rrf hybrid evaluation playground", run: go("/lab") },
+      { id: "p-studio", group: "Pages", title: "Studio", icon: "workflow", keywords: "canvas react flow simulate design architecture workflow drag drop latency cost", run: go("/studio") },
       { id: "p-map", group: "Pages", title: "Technique map", icon: "compass", keywords: "which technique fix problem diagnose", run: go("/map") },
       { id: "p-toolkit", group: "Pages", title: "Toolkit & MCP servers", icon: "box", keywords: "rag_common library mcp_servers code reference", run: go("/toolkit") },
       { id: "p-projects", group: "Pages", title: "Projects", icon: "rocket", run: go("/projects") },

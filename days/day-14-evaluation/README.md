@@ -2,6 +2,27 @@
 
 **Goal:** stop guessing. Measure retrieval and answer quality so every change is a measured improvement.
 
+## In everyday life
+
+Before a big exam, a good coaching class does not just tell students to study harder. It sets a mock test with an answer key, marks it, and checks the score. Then it changes something, such as the study plan, and tests again. Without that, nobody knows whether the change helped.
+
+A RAG system needs the same habit. **Evaluation** (measuring quality with a fixed set of test questions) looks at two halves. First, retrieval: did we fetch the right pages? Two common scores are **hit@k** (the share of questions where a correct source is in the top k results) and **MRR** (mean reciprocal rank, which rewards putting the right source first). Second, generation: is the answer correct and **faithful** (every claim is backed by the retrieved text)?
+
+Marking hundreds of answers by hand is slow, so a strong model can do the marking. This is **LLM-as-judge** (a model that grades answers against a reference answer and the sources). Unlike a trusted teacher, the judge can be wrong, so you check its marks against your own on a small sample.
+
+**Where you meet it.** A team running a customer help bot wants to try bigger chunks. They keep a set of real customer questions with correct answers, run the old and new setups, and compare scores. If the numbers drop, they undo the change before any customer sees it.
+
+```scene
+title: The mock test before the real exam
+step: 📋 A coaching class prepares a mock test with an answer key | Eval set with reference answers
+step: 📚 First it checks whether each student opened the right chapter | Retrieval hit rate and MRR
+step: ✏️ Then it checks whether the written answer matches the key | Answer correctness and faithfulness
+step: 👩 A senior teacher marks the answers and writes her reasons first | LLM-as-judge
+step: 🔁 After the study plan changes, the same test is taken again | Re-run the eval after each change
+step: 📈 The scores show whether the change really helped | Measured improvement
+takeaway: Measure retrieval and answers on the same questions after every change.
+```
+
 ## Evaluate the two halves separately
 | Half | Question | Metrics |
 |------|----------|---------|

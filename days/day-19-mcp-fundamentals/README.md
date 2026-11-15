@@ -2,6 +2,27 @@
 
 **Goal:** understand what MCP is, why it exists, and its three building blocks.
 
+## In everyday life
+
+Imagine every shop in your street had to set up a separate arrangement with every bank before it could take a digital payment. Nobody would bother. A shared payment standard, like UPI, removes that work. Any app talks to any bank in the same agreed way.
+
+AI apps faced the same mess. Each app wrote custom code for each data source, so five apps and ten sources meant fifty pieces of glue. The **Model Context Protocol (MCP)** is one shared standard for this. You write a connector once, and every compatible app can use it. The app you chat with is the **host**. Inside it, a **client** keeps one connection per **server**, which is a small program that offers abilities. A server can offer **tools** (actions the model chooses to run), **resources** (documents attached as context) and **prompts** (ready-made templates the user picks).
+
+Unlike a payment standard, MCP moves questions and facts, not money, and each server decides what it allows.
+
+**Where you meet it.** A company wants its assistant apps to read the internal wiki and query a sales database. Without a standard, every app needs its own wiki code and its own database code. With MCP, the wiki and the database each become one server, and any host app can plug into both.
+
+```scene
+title: One standard instead of many setups
+step: 🏪 Every shop needs its own setup with every payment app and bank | N times M custom integrations
+step: 📜 One shared rulebook is agreed that every app and bank follows | Model Context Protocol
+step: 📱 You open your payment app, where you do everything | Host
+step: 🔌 Inside it, one open line is kept to each bank | MCP client, one per server
+step: 🏦 Each bank answers in the agreed format and lists what it can do | Server exposes tools, resources, prompts
+step: ✅ A new bank joins and every app works with it at once | Write once, works in every host
+takeaway: MCP turns many custom connections into one standard that every host and server speaks.
+```
+
 ## The problem MCP solves
 Every AI app used to write custom glue for every data source: a Slack connector for app A, another for
 app B... **N apps × M tools = N×M integrations**. MCP is an open standard - "USB-C for AI tools" - so a

@@ -59,7 +59,7 @@ browser. Edit a lesson, a project or the code and the open page updates by itsel
 
 **Just want to read and play?** A read-only copy is published at
 **https://kushalranaai.github.io/All-in-One-RAG_tutorials/** (rebuilt automatically from `main`). It has the lessons,
-the retrieval lab, progress tracking, notes and the AI tutor with your own key; it can't run the Python scripts.
+the retrieval lab, the Studio, progress tracking, notes and the AI tutor with your own key; it can't run the Python scripts.
 
 - **Guided days.** Each day is a short journey: Overview → Learn → Try it → Code → Run → Exercises → Quiz → Notes.
   Tick off exercises, mark days complete, keep notes, and pick up where you left off from the dashboard.
@@ -67,6 +67,7 @@ the retrieval lab, progress tracking, notes and the AI tutor with your own key; 
   repository root. Edit the arguments to ask your own question.
 - **Retrieval lab.** Chunking, embeddings, BM25 + RRF hybrid search, prompt assembly and the Day 14 evaluation,
   running in the browser on the sample handbook (the `rag_common` algorithms ported to TypeScript, no API key needed).
+- **Studio.** Drag retrievers, rerankers, agents, guardrails, queues and GPU pools onto a canvas, simulate a thousand requests and read p50/p95/p99, cost and correctness, then export the design as Python. 15 ready-made real-world workflows (a support copilot, contract review, Graph RAG, an enterprise platform...) each link to the days and project that teach them. Simulations use example prices and speeds: they compare designs, they don't quote costs.
 - **Technique map.** Start from what's going wrong ("misses exact terms", "wrong customer's data") and jump to the day that fixes it.
 - **AI tutor.** Highlight anything and ask. It uses the `ANTHROPIC_API_KEY` in your `.env` (the key stays on your
   computer), or a local Ollama model, or another provider's key.
@@ -156,7 +157,7 @@ search), `sql_server` (read-only SQL) and `tickets_server` (ticketing). Add them
 
 ```
 start.py           one-command launcher for the web app
-web/               Next.js app: renders the course, retrieval lab, runs scripts locally (see web/DESIGN.md)
+web/               Next.js app: renders the course, retrieval lab, Studio, runs scripts locally (see web/DESIGN.md)
 rag_common/        shared library you build in Week 1 (LLM wrapper, embeddings, chunking, vector store,
                    BM25 + hybrid search, agents, MCP bridge)
 data/              sample "Nimbus Cloud" handbook, eval set, sample DB generator

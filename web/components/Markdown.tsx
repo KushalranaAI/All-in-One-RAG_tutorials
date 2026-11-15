@@ -7,6 +7,7 @@ import rehypeKatex from "rehype-katex";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import Mermaid from "./Mermaid";
+import Scene from "./lesson/Scene";
 import AskButton from "./ai/AskButton";
 import Icon from "./ui/Icon";
 
@@ -70,6 +71,10 @@ export default function Markdown({ children, askable = true }: { children: strin
           pre(props) {
             const child = props.children as { props?: { className?: string } } | undefined;
             if (child?.props?.className?.includes("language-mermaid")) return <>{props.children}</>;
+            if (child?.props?.className?.includes("language-scene")) {
+              const code = (props.node as HastNode | undefined)?.children?.[0];
+              return <Scene raw={code ? hastText(code).trim() : ""} />;
+            }
             return <CodeBlock node={props.node as HastNode | undefined} askable={askable}>{props.children}</CodeBlock>;
           },
           table(props) {

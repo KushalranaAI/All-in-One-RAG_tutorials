@@ -2,6 +2,27 @@
 
 **Goal:** write the host side - your own app that connects Claude to one or many MCP servers.
 
+## In everyday life
+
+Think of the switchboard operator in a large office. When the office opens, she rings each department and asks what it handles. She writes a directory with the department name in front of each service, so "billing refunds" and "shop refunds" never get mixed up. When a caller asks something, she forwards the request to the right department and brings the reply back.
+
+This lesson builds that operator. An **MCP server** is a program that offers tools to AI apps. An **MCP client** is the part of your app that connects to one server and asks for its tool list. Your app, the **host**, connects to several servers and shows Claude every tool. **Namespacing** (putting the server name in front of each tool name, like server__tool) stops two servers' tools from clashing. When Claude asks for a tool, your code sends the call to the right server. For remote servers, the API's built-in **MCP connector** can play the operator for you.
+
+Unlike a human operator, your code must forward every error message too, so Claude can react.
+
+**Where you meet it.** A company's assistant app connects to a handbook server and a calculator server. Asked "how much is the yearly plan with 15% off?", Claude takes the price from the handbook and the arithmetic from the calculator.
+
+```scene
+title: The switchboard operator
+step: 📞 When the office opens, the operator rings each department | Connect to each MCP server
+step: 📒 Each department tells her which requests it handles | List the tools
+step: 🏷️ She writes one directory with the department name in front | Namespace as server__tool
+step: 🙋 A caller asks something that needs billing and a calculation | Claude picks tools from several servers
+step: ➡️ She forwards each request to the right department | Route call_tool to the right server
+step: 📨 She carries the replies back and says which ones failed | tool_result with is_error
+takeaway: A client lists every server's tools for Claude and routes each call to the right server.
+```
+
 ## Option A: your own client (local or remote servers)
 `rag_common/mcp_bridge.py` does four things:
 1. **Connect** to each server (`mcp.Client` with stdio params, a URL, or an in-process object).

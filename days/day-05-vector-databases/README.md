@@ -2,6 +2,26 @@
 
 **Goal:** store embeddings and find the nearest ones fast; understand what a vector DB actually does.
 
+## In everyday life
+
+Imagine the post office has to deliver a parcel, but the label has no street address. It only says "somewhere near the old market, close to the blue school". The postman could knock on every house in the country until one fits. He would find the best match, but it would take years.
+
+A **vector database** (a store that keeps embeddings and quickly finds the ones closest to a given one) solves this. For each piece of text it keeps a label (`id`), a position (the **vector**, a list of numbers), the original text, and extra notes (**metadata**, such as the category or date). Checking every item is called **brute force** (compare against everything, always exact). It is fine for a small town. For a big country, an **approximate nearest neighbour index** (a shortcut structure that checks only the promising area) sorts houses into districts first, then searches only the nearest districts.
+
+Unlike the postman, the shortcut can occasionally skip the very closest house. You trade a tiny bit of accuracy for a huge gain in speed.
+
+**Where you meet it.** An online shop with a million product descriptions lets shoppers search by meaning and filter by category. Scanning every product for every search makes the page slow. A vector database with an index returns the closest products in a blink and only from the chosen category.
+
+```scene
+title: The post office finds the nearest house
+step: 📦 Every parcel is stored with a label, a map spot, the contents and notes | id, vector, text, metadata
+step: 🙋 A new request arrives with only a rough spot on the map | Query vector
+step: 🚶 Knocking on every house would be exact but far too slow | Brute force search
+step: 🏘️ The post office groups houses into districts and visits only nearby ones | ANN index such as IVF
+step: 🏠 Inside those districts it picks the k closest houses matching the filter | Top k with metadata filter
+takeaway: A vector database trades a little accuracy for speed by searching only the promising neighbourhood.
+```
+
 ## What a vector DB stores
 For every chunk: `id`, `vector`, `text`, `metadata`. A query is "give me the k vectors closest to this
 one (optionally where metadata matches X)".
