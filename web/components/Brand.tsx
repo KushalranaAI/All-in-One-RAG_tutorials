@@ -1,3 +1,4 @@
+import { FAMILY } from "@/app/design/roadmaps.js";
 import { BRAND } from "@/lib/brand";
 
 // Small filled brand marks (24px grid), drawn here so no icon package is needed.
@@ -14,7 +15,8 @@ export default function Credit() {
   return (
     <footer className="credit">
       <span className="credit-text">
-        Built by <a href={BRAND.links[0].href} target="_blank" rel="noopener noreferrer me">{BRAND.name}</a>
+        <span className="credit-wide">Built by </span><a href={BRAND.links[0].href} target="_blank" rel="noopener noreferrer me">{BRAND.name}</a>
+        {" · "}<span className="credit-wide">Part of </span><a href={FAMILY.hub} title={`${FAMILY.name}: every roadmap by ${FAMILY.author}`}>{FAMILY.name}</a>
       </span>
       <nav className="credit-links" aria-label={`${BRAND.name} on the web`}>
         {BRAND.links.map((l) => (

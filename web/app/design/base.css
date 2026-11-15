@@ -26,7 +26,9 @@ p { margin: 0 0 0.8em; }
 ::selection { background: #10b98155; }
 :focus-visible { outline: none; box-shadow: var(--ring); border-radius: 6px; }
 * { scrollbar-width: thin; scrollbar-color: var(--line-2) transparent; }
-@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+/* Reduced motion: transitions off and animations end at once. Transitions are 0s, not a tiny duration: with a tiny one every
+   style change is still a transition, and code that measures right after changing styles (Mermaid) reads stale values. */
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0s !important; scroll-behavior: auto !important; } }
 
 /* ---------- utilities ---------- */
 .muted { color: var(--muted); }
@@ -224,6 +226,8 @@ a.card:hover { border-color: var(--line-2); text-decoration: none; transform: tr
 .credit-links a { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 6px; color: var(--muted); transition: color 0.15s, background 0.15s; }
 .credit-links a:hover { color: var(--text); background: var(--panel-2); text-decoration: none; }
 .credit-links a:focus-visible { box-shadow: var(--ring); }
+.credit-text { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+@media (max-width: 560px) { .credit-wide { display: none; } } /* phones: "Kushal Rana · Learn in Public" */
 
 
 /* ---------- on-demand AI + chat assistant ---------- */
@@ -286,6 +290,18 @@ a.card:hover { border-color: var(--line-2); text-decoration: none; transform: tr
   .chat-fab { right: 12px; bottom: 16px; }
 }
 
+/* the progress / streak link on the right of the top bar */
+.nav-progress { position: relative; flex: none; color: var(--muted); padding: 7px 12px; border-radius: var(--r-sm); display: flex; align-items: center; gap: 7px; font-weight: 500; font-size: 0.9rem; transition: color 0.15s, background 0.15s; }
+.nav-progress:hover { color: var(--text); text-decoration: none; background: var(--panel); }
+.nav-progress.active { color: var(--text); background: var(--panel-2); box-shadow: inset 0 0 0 1px var(--line); }
+.nav-progress.active svg { color: var(--accent-strong); }
+
+/* <kr-roadmaps>, the Learn in Public switcher (design/roadmaps.js), collapses its label together with the nav labels */
+@media (max-width: 1180px) {
+  kr-roadmaps::part(label) { display: none; }
+  kr-roadmaps::part(button) { padding: 0; width: 34px; justify-content: center; }
+}
+
 /* ---------- shell + home responsive ---------- */
 @media (max-width: 1180px) {
   .entry-grid, .how-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -308,9 +324,8 @@ a.card:hover { border-color: var(--line-2); text-decoration: none; transform: tr
   .ai-chip .nav-label { display: none; }
   .hero-metrics { display: none; }
 }
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
-}
+/* phones: when the top bar is still too full, the section links scroll sideways instead of pushing the tools on the right off screen */
+@media (max-width: 640px) { .nav nav { min-width: 0; overflow-x: auto; scrollbar-width: none; } }
 
 /* ---------- icon tile used inside hero nodes and cards ---------- */
 .kind-icon { --kind: var(--accent); display: grid; place-items: center; flex: none; width: 28px; height: 28px; border-radius: 8px; color: var(--kind); background: color-mix(in srgb, var(--kind) 14%, transparent); border: 1px solid color-mix(in srgb, var(--kind) 30%, transparent); }

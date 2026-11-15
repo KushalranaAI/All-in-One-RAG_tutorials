@@ -2,6 +2,8 @@
 
 **Learn Retrieval-Augmented Generation (RAG) in 30 days, from your first embedding to multi-agent systems built on MCP, then build 15 portfolio projects.**
 
+Part of **[Learn in Public](https://kushalranaai.github.io/learn-in-public/)**: seven connected roadmaps from your first class to production AI systems. Every app has a **Roadmaps** button in its top bar that shows the others, and your progress in each.
+
 Every day has a short lesson (`README.md`) and runnable Python code. Every project is a complete
 application you can adapt to your own data. Everything uses the [Claude API](https://platform.claude.com/docs)
 and the official [Model Context Protocol](https://modelcontextprotocol.io) Python SDK.

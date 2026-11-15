@@ -1,8 +1,8 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef } from "react";
-import type { Nav as NavData } from "@/lib/nav";
+import { useEffect, useMemo, useRef } from "react";
+import { allLessons, type Nav as NavData } from "@/lib/nav";
 import { streak, useProgress } from "@/lib/progress";
 import { useAI } from "./ai/AIProvider";
 import { PALETTE_EVENT } from "./CommandPalette";
@@ -23,6 +23,9 @@ export function Logo({ size = 26 }: { size?: number }) {
 
 type Item = { href: string; label: string; icon: IconName; match: (p: string) => boolean };
 
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+const SLASH = process.env.NEXT_PUBLIC_STATIC_EXPORT === "1" ? "/" : ""; // the static copy is exported with trailing slashes
+
 export default function Nav({ nav, onMenu, hasOutline }: { nav: NavData; onMenu: () => void; hasOutline: boolean }) {
   const pathname = usePathname();
   const ai = useAI();
@@ -38,6 +41,13 @@ export default function Nav({ nav, onMenu, hasOutline }: { nav: NavData; onMenu:
     { href: "/toolkit", label: "Toolkit", icon: "box", match: (p) => p.startsWith("/toolkit") },
     { href: "/projects", label: "Projects", icon: "rocket", match: (p) => p.startsWith("/projects") },
   ];
+
+  // What the Learn in Public switcher saves for the hub: lessons done, and the lesson to resume.
+  const lessons = useMemo(() => allLessons(nav), [nav]);
+  const done = lessons.filter((l) => progress.done[l.id]).length;
+  const resume = progress.last && !progress.done[progress.last.id] && progress.last.href.startsWith("/learn")
+    ? { href: progress.last.href, title: progress.last.title }
+    : lessons.find((l) => !progress.done[l.id]) ?? null;
 
   // reading progress for long pages
   useEffect(() => {
@@ -77,6 +87,13 @@ export default function Nav({ nav, onMenu, hasOutline }: { nav: NavData; onMenu:
           </Link>
         ))}
       </nav>
+      <kr-roadmaps
+        current="rag"
+        done={done}
+        total={lessons.length}
+        resume-href={resume ? `${BASE}${resume.href}${SLASH}` : undefined}
+        resume-label={resume?.title}
+      />
       <span className="grow" />
       <button type="button" className="search-btn" onClick={() => window.dispatchEvent(new Event(PALETTE_EVENT))} aria-label="Search">
         <Icon name="search" size={15} />

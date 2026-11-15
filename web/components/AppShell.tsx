@@ -11,6 +11,7 @@ import CommandPalette from "./CommandPalette";
 import Outline from "./Outline";
 import Toaster from "./Toaster";
 import TopNav from "./Nav";
+import FamilyElements from "./Family";
 
 function Frame({ nav, children }: { nav: Nav; children: React.ReactNode }) {
   const pathname = usePathname();
@@ -50,6 +51,7 @@ function Frame({ nav, children }: { nav: Nav; children: React.ReactNode }) {
         <AIPanel />
       </div>
       <Credit />
+      <FamilyElements />
       <CommandPalette nav={nav} />
       <SelectionAsk />
       <Toaster />

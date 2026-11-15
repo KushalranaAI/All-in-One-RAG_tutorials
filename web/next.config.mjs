@@ -13,6 +13,7 @@ const nextConfig = {
   outputFileTracingRoot: fileURLToPath(new URL("..", import.meta.url)),
   env: {
     NEXT_PUBLIC_STATIC_EXPORT: staticExport ? "1" : "",
+    NEXT_PUBLIC_BASE_PATH: basePath, // links saved for other apps (the Learn in Public hub) must include the Pages base path
     NEXT_PUBLIC_REPO_URL: "https://github.com/KushalranaAI/All-in-One-RAG_tutorials",
   },
   // The local app sends the policy as a header. (The static copy can't send headers; build-pages.mjs adds it as a <meta> tag.)

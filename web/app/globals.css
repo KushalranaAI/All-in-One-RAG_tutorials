@@ -703,11 +703,12 @@ details.module:target { border-color: var(--brand-solid); box-shadow: 0 0 0 1px 
 .run-cmdline .chip-btn { background: rgb(255 255 255 / 0.06); border-color: transparent; color: #c3cbdd; }
 .run-cmdline .chip-btn:hover { background: rgb(255 255 255 / 0.12); color: #fff; }
 
-/* phone: the nav sheds the streak chip and tightens, so it never overflows */
+/* phone: the nav sheds the streak chip and tightens, so it never overflows, even with the outline button on lessons.
+   ".app .nav" outranks base.css's own 640px rule, which loads after this file. */
 @media (max-width: 560px) {
   .nav .nav-progress { display: none; }
-  .nav nav a { padding: 7px 8px; }
-  .nav { gap: 6px; }
+  .app .nav { gap: 4px; }
+  .app .nav nav a { padding: 7px 7px; }
 }
 
 /* ---------------------------------------------------------------- interactive technique map */
@@ -916,3 +917,5 @@ details.module:target { border-color: var(--brand-solid); box-shadow: 0 0 0 1px 
 .pathguide-card .btn { align-self: flex-start; margin-top: auto; }
 .pathguide-num { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--panel-3); color: var(--accent-strong); font-weight: 650; font-size: 0.8rem; }
 .pathguide-here { align-self: flex-start; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-strong); }
+.pathguide-family { margin: 16px 0 0; max-width: 760px; line-height: 1.55; }
+.pathguide-family a { font-weight: 600; }
